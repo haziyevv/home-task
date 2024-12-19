@@ -82,22 +82,21 @@ Analyzes text similarity between two sources and a query.
 #### Request Body
 ```json
 {
-    "source1": "string",
-    "source2": "string",
-    "query": "string",
-    "threshold": float
+    "first_text": "string",
+    "second_text": "string",
 }
 ```
 
 #### Response
 ```json
 {
-    "similar_to_source1": boolean,
-    "similar_to_source2": boolean,
-    "similarity_scores": {
-        "source1": float,
-        "source2": float
-    }
+    "message": "string",
+    "differences": [
+        {
+            "first_text": "string",
+            "second_text": "string"
+        }
+    ]
 }
 ```
 
@@ -109,19 +108,16 @@ Processes text according to provided instructions and templates.
 #### Request Body
 ```json
 {
-    "text": "string",
-    "instruction": "string"
+    "template": "string",
+    "input_text": "string"
 }
 ```
 
 #### Response
 ```json
 {
-    "processed_text": "string",
-    "processing_details": {
-        "applied_rules": [string],
-        "modifications": int
-    }
+    "result": "string",
+    "explanation": "string"
 }
 ```
 
@@ -133,16 +129,15 @@ Modifies text based on feedback instructions.
 #### Request Body
 ```json
 {
-    "original_text": "string",
-    "feedback": "string"
+    "text": "string",
+    "target": "Which part of the text to modify",
+    "instruction": "how to modify the text, edit, add or delete"
 }
 ```
 
 #### Response
 ```json
 {
-    "modified_text": "string",
-    "changes_applied": [string],
-    "improvement_score": float
+    "updated_text": "string",
 }
 ```

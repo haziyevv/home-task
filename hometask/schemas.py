@@ -2,22 +2,24 @@ from pydantic import BaseModel
 from typing import List, Optional
 
 
-class TextSearchRequest(BaseModel):
-    text1: str
-    text2: str
-    query: str
-    similarity_threshold: Optional[float] = 0.9
+class TextSimilarityRequest(BaseModel):
+    first_text: str
+    second_text: str
 
-class TextSearchResponse(BaseModel):
-    exists_in_both: bool
-    similarity_scores: dict
+class TextDiff(BaseModel):
+    first_text: str
+    second_text: str
+
+class TextSimilarityResponse(BaseModel):
+    message: str
+    differences: List[TextDiff]
 
 class FollowInstructionsRequest(BaseModel):
     template: str
     input_text: str
 
 class FollowInstructionsResponse(BaseModel):
-    result: str
+    result: bool
     explanation: str
 
 class FeedbackImplementationRequest(BaseModel):

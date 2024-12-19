@@ -4,8 +4,9 @@ from .task1 import search_query_in_texts  # task1
 from .task2 import follow_instructions  # task2
 from .task3 import implement_feedback  # task3
 from .schemas import (
-    TextSearchRequest,
-    TextSearchResponse,
+    TextSimilarityRequest,
+    TextSimilarityResponse,
+    TextDiff,
     FollowInstructionsRequest,
     FollowInstructionsResponse,
     FeedbackImplementationRequest,
@@ -26,25 +27,20 @@ app = FastAPI(
 async def root():
     return {"message": "Welcome to HomeTasks API"}
 
-@app.post("/task1", response_model=TextSearchResponse)
-async def task1(request: TextSearchRequest):
+@app.post("/task1", response_model=TextSimilarityResponse)
+async def task1(request: TextSimilarityRequest):
     """
     Search for a query text in two given texts with approximate matching.
     """
     try:
-        result, score1, score2 = search_query_in_texts(
-            request.text1,
-            request.text2,
-            request.query,
-            request.similarity_threshold
+        differences = search_query_in_texts(
+            request.first_text,
+            request.second_text,
         )
-        return {
-            "exists_in_both": result,
-            "similarity_scores": {
-                "text1": score1,
-                "text2": score2
-            }
-        }
+        return TextSimilarityResponse(
+            message="Texts are similar" if not differences else "Texts are not similar",
+            differences=[TextDiff(**x) for x in differences],
+        )
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 

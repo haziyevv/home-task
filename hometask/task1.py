@@ -1,42 +1,39 @@
-from difflib import SequenceMatcher
+import difflib
 
-def search_query_in_texts(text1: str, text2: str, query: str, similarity_threshold: float = 0.9) -> bool:
+
+def search_query_in_texts(first_text: str, second_text: str) -> list[dict]:
     """
-    Search for a query text in two given texts with approximate matching.
+    Search for a query text in two given texts and return differences.
     
     Args:
-        text1 (str): First text to search in
-        text2 (str): Second text to search in
-        query (str): Query text to search for
-        similarity_threshold (float): Minimum similarity ratio (0.0 to 1.0) to consider a match
+        first_text (str): First text to search in
+        second_text (str): Second text to search in
         
     Returns:
-        bool: True if query exists in both texts with similarity >= threshold, False otherwise
+        list[dict]: List of dictionaries containing differences, where each dict has
+                   'first_doc' and 'second_doc' keys with corresponding sentences
     """
-    def find_best_match_ratio(text: str, query: str) -> float:
-        # Convert to lowercase for case-insensitive comparison
-        text = text.lower()
-        query = query.lower()
-        
-        # Split text into words
-        words = text.split()
-        
-        # Find the best matching ratio among all possible word combinations
-        best_ratio = 0
-        query_words = len(query.split())
-        
-        for i in range(len(words)):
-            # Take chunks of text the same length as the query
-            text_chunk = ' '.join(words[i:i + query_words])
-            ratio = SequenceMatcher(None, text_chunk, query).ratio()
-            best_ratio = max(best_ratio, ratio)
-            
-        return best_ratio
+    # Generate a unified diff
+    diff = difflib.unified_diff(
+        first_text.splitlines(), 
+        second_text.splitlines(), 
+        lineterm="\n", 
+        fromfile="first_text",
+        tofile="second_text"
+    )
     
-    # Find best match ratios for both texts
-    ratio1 = find_best_match_ratio(text1, query)
-    ratio2 = find_best_match_ratio(text2, query)
+    differences = []
+    current_pair = {"first_text": None, "second_text": None}
+    for line in diff:
+        if line.startswith('-'):
+            current_pair["first_text"] = line[1:].strip()
+        elif line.startswith('+'):
+            current_pair["second_text"] = line[1:].strip()
+            if current_pair["first_text"] is not None:
+                differences.append(current_pair.copy())
+                current_pair = {"first_text": None, "second_text": None}
     
-    # Return True if both texts have matches above the threshold
-    return ratio1 >= similarity_threshold and ratio2 >= similarity_threshold, ratio1, ratio2
-
+    if len(differences) > 1:
+        return differences[1:]
+    else:
+        return []
