@@ -13,6 +13,11 @@ def search_query_in_texts(first_text: str, second_text: str) -> list[dict]:
         list[dict]: List of dictionaries containing differences, where each dict has
                    'first_doc' and 'second_doc' keys with corresponding sentences
     """
+    
+    # replace \\n with \n
+    first_text = first_text.replace("\\n", "\n")
+    second_text = second_text.replace("\\n", "\n")
+
     # Generate a unified diff
     diff = difflib.unified_diff(
         first_text.splitlines(), 
@@ -21,7 +26,6 @@ def search_query_in_texts(first_text: str, second_text: str) -> list[dict]:
         fromfile="first_text",
         tofile="second_text"
     )
-    
     differences = []
     current_pair = {"first_text": None, "second_text": None}
     for line in diff:

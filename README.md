@@ -1,5 +1,7 @@
 # NLP Tasks API Documentation
 
+**In order to test the endpoints use examples in tasks.md**
+
 ## Overview
 
 The NLP Tasks API is a service that provides natural language processing capabilities through three main endpoints:

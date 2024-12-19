@@ -34,8 +34,8 @@ async def task1(request: TextSimilarityRequest):
     """
     try:
         differences = search_query_in_texts(
-            request.first_text,
-            request.second_text,
+            request.first_text.strip(),
+            request.second_text.strip(),
         )
         return TextSimilarityResponse(
             message="Texts are similar" if not differences else "Texts are not similar",

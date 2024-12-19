@@ -41,9 +41,9 @@ In this document some test cases are given for each task.
 
 `template` = [Free text area for salutation and HCP preferred name for sales representative use. Use this free text area as an opportunity to let the HCP know why he/she is receiving the email. Do not include both product and disease state information. Free text is limited to 50 words. Drop down text selection may also be used.]
 
-`input_text` = Dear Dr. Jones, it was good to talk to you last week. I would like to set up some time to further discuss some information about the new drug that we have. Please call or email me with some available times for us to talk. Thank you.
+`wrong_input_text` = Dear Dr. Jones, it was good to talk to you last week. I would like to set up some time to further discuss some information about the new drug that we have. Please call or email me with some available times for us to talk. Thank you.
 
-
+`correct_input_text` = Dear Dr. Jones, it was good to talk to you last week. I would like to set up some time to further discuss some information that you may find useful. Please call or email me with some available times for us to talk. Thank you.
 
 ### Third Paragraph
 
@@ -59,7 +59,7 @@ In this document some test cases are given for each task.
 
 `text1` = A major breakthrough in HR+HER2-EBC
 `edit_instruction` = Natalie Wolfe on behalf of Judith Grimes Must revise, and regulatory must review. \"Major breakthrough\" is a claim and not appropriate for a subject line. Must include the concept of high risk with disease state mention.
-target1 = A major breakthrough in HR+HER2-EBC
+`target1` = A major breakthrough in HR+HER2-EBC
 
 
 
