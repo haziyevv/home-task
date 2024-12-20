@@ -51,7 +51,7 @@ The NLP Tasks API is a service that provides natural language processing capabil
    docker-compose up --build
    ```
    
-4. Api will be started at: `http:0.0.0.0:8000` and gradio ui will be started at: `http://localhost:7860` It would be easier to use gradio ui.
+4. Api will be started at: `http://0.0.0.0:8000` and gradio ui will be started at: `http://localhost:7860` It would be easier to use gradio ui.
 
 ### Manual Installation
 
