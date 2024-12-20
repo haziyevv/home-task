@@ -99,5 +99,6 @@ if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",  # Allow external connections
         server_port=7860,
-        share=True  # Generate a public URL that can be shared
+        share=True,  # Generate a public URL
+        quiet=False  # Show all output including URLs
     ) 

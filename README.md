@@ -50,15 +50,18 @@ The NLP Tasks API is a service that provides natural language processing capabil
    ```bash
    docker-compose up --build
    ```
+   
+4. Api will be started at: `http:0.0.0.0:8000` and gradio ui will be started at: `http://localhost:7860` It would be easier to use gradio ui.
 
 ### Manual Installation
 
 1. **Set Up Python Environment**
+   
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-
+   
 2. **Install Dependencies**
    ```bash
    pip install -r requirements.txt
@@ -73,6 +76,51 @@ The NLP Tasks API is a service that provides natural language processing capabil
    ```bash
    uvicorn hometask.api:app --host 0.0.0.0 --port 8000
    ```
+
+## Gradio Web Interface
+
+The project includes a user-friendly web interface built with Gradio that provides easy access to all API endpoints.
+
+### Accessing the Interface
+
+When running with Docker:
+- Local URL: `http://localhost:7860`
+- A public sharing URL will be generated and displayed in the console
+
+### Interface Features
+
+The interface provides three tabs:
+
+1. **Text Similarity**
+   - Input fields for two texts
+   - Shows similarity analysis results
+
+2. **Instruction Processing**
+   - Template input field
+   - Text input field
+   - Displays processed results with explanations
+
+3. **Feedback Implementation**
+   - Text input field
+   - Target specification field
+   - Instruction field for modifications
+   - Shows the updated text after changes
+
+### Running the Interface Separately
+
+To use the Gradio interface:
+
+1. **First, start the FastAPI server:**
+   ```bash
+   uvicorn hometask.api:app --host 0.0.0.0 --port 8000
+   ```
+
+2. **Then, in a separate terminal, run the Gradio interface:**
+   ```bash
+   python -m hometask.gradio_interface
+   ```
+
+Note: The Gradio interface requires the API server to be running and accessible at `http://localhost:8000`.
 
 ## API Reference
 
